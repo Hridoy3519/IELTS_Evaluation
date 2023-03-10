@@ -1,0 +1,76 @@
+.navbar {
+    background: transparent;
+    z-index: 2;
+}
+
+.fixed-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+    color: black;
+    font-size: 28px;
+}
+
+.navbar .navbar-nav .nav-link {
+    font-size: 18px;
+    letter-spacing: 0.15rem;
+}
+
+.fixed-nav .navbar-nav .nav-link {
+    color: black !important;
+}
+
+.logout-btn {
+    background-color: #F65B47;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.user-name-text {
+    color: #F65B47;
+}
+
+.profile-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    background-color: #f8f9fa;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+    color: #333;
+    font-weight: bold;
+}
+
+.dropdown-item:hover {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+@media only screen and (max-width:688px) {
+    .mobile-fixed {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-fixed .navbar-nav .nav-link {
+        color: black !important;
+    }
+}
