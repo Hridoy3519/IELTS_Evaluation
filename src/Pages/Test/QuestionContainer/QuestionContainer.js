@@ -28,7 +28,7 @@ const QuestionContainer = (props) => {
     const handleSubmit = (e) => {
         console.log("IIII")
         const data = { question, answer: userAnswer }
-        fetch("http://localhost:5000/test-band-score", {
+        fetch("https://ielts-evaluation-server-side.vercel.app/test-band-score", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -50,7 +50,7 @@ const QuestionContainer = (props) => {
     };
 
     const storeUserTestResult = (testResult) => {
-        fetch("http://localhost:5000/addNewTest", {
+        fetch("https://ielts-evaluation-server-side.vercel.app/addNewTest", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

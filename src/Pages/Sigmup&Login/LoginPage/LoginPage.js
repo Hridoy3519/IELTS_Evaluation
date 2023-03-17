@@ -45,7 +45,7 @@ function LoginPage() {
                             </Form.Group>
 
                             <Form.Group controlId="formBasicConfirmEmail">
-                                <Form.Control type="email" name='password' onBlur={handleOnBlur} placeholder="Confirm email" required />
+                                <Form.Control type="password" name='password' onBlur={handleOnBlur} placeholder="Password" required />
                             </Form.Group>
 
                         </div>

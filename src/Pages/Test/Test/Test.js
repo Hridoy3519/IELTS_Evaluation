@@ -12,7 +12,7 @@ const Test = () => {
     useEffect(() => {
         if (!apiCalled) {
             apiCalled = true
-            fetch("http://localhost:5000/test-questions")
+            fetch("https://ielts-evaluation-server-side.vercel.app/test-questions")
                 .then(res => res.json())
                 .then(data => setQuestion(data.data))
         }
