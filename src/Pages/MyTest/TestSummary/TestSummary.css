@@ -1,4 +1,4 @@
-.test-summary-card {
+/* .test-summary-card {
     border-radius: 15px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -37,4 +37,12 @@
 
 .show-details-btn:hover {
     background-color: #1874CD;
+} */
+
+.my-order-img {
+    height: 100%;
+}
+
+.product-detail {
+    border: none;
 }

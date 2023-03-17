@@ -92,7 +92,7 @@ const useFirebase = () => {
                 //update user information in firebase
                 updateUserInfo(name);
                 //save user on Database
-                //saveUser(email, name, password, "POST");
+                saveUser(email, name, password, "POST");
 
                 setErrorMessage("");
                 history("/");
@@ -144,7 +144,7 @@ const useFirebase = () => {
                 setUser(user);
                 setErrorMessage("");
 
-                //saveUser(user.email, user.displayName, "", "PUT");
+                saveUser(user.email, user.displayName, "", "PUT");
                 const destination = location?.state?.from || "/";
                 history(destination);
             })
@@ -188,7 +188,7 @@ const useFirebase = () => {
     const saveUser = (email, name, password, method) => {
         const newUser = { email, displayName: name, password, role: 'user' };
 
-        fetch("https://dry-gorge-11173.herokuapp.com/users", {
+        fetch("http://localhost:5000/users", {
             method: method,
             headers: {
                 "content-type": "application/json",

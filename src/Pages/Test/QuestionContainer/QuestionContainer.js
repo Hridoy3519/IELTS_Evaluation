@@ -1,20 +1,16 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
+import useAuth from '../../../Hooks/useAuth';
 
-const QuestionContainer = () => {
+const QuestionContainer = (props) => {
+    const { question, showFeedback, onPressSubmit } = props
+    const { user } = useAuth()
     const [userAnswer, setUserAnswer] = useState("");
-    const [question, setQuestion] = useState("");
     const [band_score, setBandScore] = useState("");
     const [feedback, setFeedback] = useState("");
-    const [showFeedback, setShowFeedback] = useState(false)
     const handleAnswerChange = (event) => {
         setUserAnswer(event.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        setShowFeedback(true)
-        console.log("hello")
     };
 
     const [time, setTime] = useState(2400); // 40 minutes in seconds
@@ -26,7 +22,11 @@ const QuestionContainer = () => {
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    const handleSubmit = (e) => {
+        console.log("IIII")
         const data = { question, answer: userAnswer }
         fetch("http://localhost:5000/test-band-score", {
             method: "POST",
@@ -38,22 +38,29 @@ const QuestionContainer = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
-                if (data.band_score) {
-
+                if (data.band_score.length > 0) {
+                    console.log("Band : ", data.band_score)
                     setBandScore(data.band_score);
                     setFeedback(data.feedback);
+                    const testResult = { user: user.email, question, bandScore: data.band_score, feedback: data.feedback, demoAnswer: "" }
+                    onPressSubmit(true)
+                    storeUserTestResult(testResult)
                 }
             });
-    }, [showFeedback]);
+    };
 
-    useEffect(() => {
-        fetch("http://localhost:5000/test-questions")
-            .then(res => res.json())
-            .then(data => setQuestion(data.data))
-    }, []);
+    const storeUserTestResult = (testResult) => {
+        fetch("http://localhost:5000/addNewTest", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(testResult),
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data));
+    }
 
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
     return (
         <div>
             <Container
@@ -146,10 +153,18 @@ const QuestionContainer = () => {
 
             {
                 showFeedback ?
-                    <Container className='my-2'>
+
+                    props?.testDetails ? <Container className='my-2'>
+                        <div>
+                            <h1>Band Score : {props?.testDetails.bandScore}</h1>
+                            <p>Feedback : {props?.testDetails.feedback}</p>
+                            <p>Demo Answer : </p>
+                        </div>
+                    </Container> : <Container className='my-2'>
                         <div>
                             <h1>Band Score : {band_score}</h1>
                             <p>Feedback : {feedback}</p>
+                            <p>Demo Answer : </p>
                         </div>
                     </Container> : ""
             }

@@ -15,6 +15,8 @@ import LoginPage from './Pages/Sigmup&Login/LoginPage/LoginPage';
 import initializeAuthentication from './Firebase/firebase.initialize';
 import AuthProvider from './Context/AuthProvider/AuthProvider';
 import TestList from './Pages/MyTest/TestList/TestList';
+import RedoExam from './Pages/Test/RedoExam/RedoExam';
+import TestDetails from './Pages/Test/TestDetails/TestDetails';
 
 function App() {
   return (
@@ -23,10 +25,13 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/test" element={<Test />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/TestList" element={<TestList />} />
+            <Route path="/redo-exam/:id" element={<RedoExam />} />
+            <Route path="/test-details/:id" element={<TestDetails />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
