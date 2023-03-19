@@ -188,7 +188,7 @@ const useFirebase = () => {
     const saveUser = (email, name, password, method) => {
         const newUser = { email, displayName: name, password, role: 'user' };
 
-        fetch("https://ielts-evaluation-server-side.vercel.app/users", {
+        fetch("http://localhost:5000/users", {
             method: method,
             headers: {
                 "content-type": "application/json",

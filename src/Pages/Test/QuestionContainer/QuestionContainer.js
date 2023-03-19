@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
@@ -9,6 +10,7 @@ const QuestionContainer = (props) => {
     const [userAnswer, setUserAnswer] = useState("");
     const [band_score, setBandScore] = useState("");
     const [feedback, setFeedback] = useState("");
+    const [uploadedImage, setUploadedImage] = useState("");
     const handleAnswerChange = (event) => {
         setUserAnswer(event.target.value);
     };
@@ -28,7 +30,7 @@ const QuestionContainer = (props) => {
     const handleSubmit = (e) => {
         console.log("IIII")
         const data = { question, answer: userAnswer }
-        fetch("https://ielts-evaluation-server-side.vercel.app/test-band-score", {
+        fetch("http://localhost:5000/test-band-score", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -49,8 +51,9 @@ const QuestionContainer = (props) => {
             });
     };
 
+
     const storeUserTestResult = (testResult) => {
-        fetch("https://ielts-evaluation-server-side.vercel.app/addNewTest", {
+        fetch("http://localhost:5000/addNewTest", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -61,6 +64,36 @@ const QuestionContainer = (props) => {
             .then((data) => console.log(data));
     }
 
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    }
+    const uploadImage = async (e) => {
+        const file = e.target.files[0]
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("http://127.0.0.1:8000/uploadfile", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => setUserAnswer(data.PredictionByModel))
+            .catch(error => console.error(error));
+        // const base64 = await convertToBase64(file)
+        // setUploadedImage(base64);
+    }
     return (
         <div>
             <Container
@@ -144,10 +177,16 @@ const QuestionContainer = (props) => {
                                     <button type="button" className="btn btn-theme">
                                         Clear
                                     </button>
+                                    <input type="file" onChange={(e) => {
+                                        uploadImage(e)
+                                    }}></input>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <img src={uploadedImage} alt="" />
                 </div>
             </Container>
 

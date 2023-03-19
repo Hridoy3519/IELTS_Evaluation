@@ -14,7 +14,7 @@ const RedoExam = () => {
     useEffect(() => {
         if (!apiCalled) {
             apiCalled = true
-            fetch(`https://ielts-evaluation-server-side.vercel.app/tests/${id}`)
+            fetch(`http://localhost:5000/tests/${id}`)
                 .then((res) => res.json())
                 .then((data) => setQuestion(data.question));
         }

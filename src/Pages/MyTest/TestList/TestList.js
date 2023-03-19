@@ -9,7 +9,7 @@ const TestList = () => {
     const { user } = useAuth();
     useEffect(() => {
         if (user.email) {
-            fetch("https://ielts-evaluation-server-side.vercel.app/tests/user", {
+            fetch("http://localhost:5000/tests/user", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
